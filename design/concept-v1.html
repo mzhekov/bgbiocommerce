@@ -1,0 +1,474 @@
+<title>BG BioCommerce</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Onest:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a lab notebook — a culture-plate hero, then specimen-label sections on a mineral ground, one amber "agar" accent. */
+:root {
+  --bg: #eef1ec;          /* mineral sage paper */
+  --surface: #f8faf6;
+  --ink: #12302a;         /* spruce ink */
+  --ink-soft: #4a615a;
+  --line: #c9d3cb;
+  --accent: #d99a1e;      /* agar amber */
+  --accent-ink: #7a5208;
+  --cell: #2f7d63;        /* chlorophyll */
+  --plate: #fbf3dc;
+  --display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --body: "Onest", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --s1: .75rem; --s2: 1rem; --s3: 1.5rem; --s4: 2.5rem; --s5: 4rem; --s6: 6rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1a17; --surface: #13241f; --ink: #e3ece6; --ink-soft: #9fb3aa;
+    --line: #26413a; --accent: #f0b23a; --accent-ink: #f6c96b; --cell: #5fbf98; --plate: #1d2a22;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1a17; --surface: #13241f; --ink: #e3ece6; --ink-soft: #9fb3aa;
+  --line: #26413a; --accent: #f0b23a; --accent-ink: #f6c96b; --cell: #5fbf98; --plate: #1d2a22;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--body);
+  padding-inline: 16px;
+}
+.wrap { max-width: 1120px; margin-inline: auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+p { margin: 0; }
+.label {
+  font: 500 .75rem/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
+}
+html[data-lang="en"] .bg, html:not([data-lang="en"]) .en { display: none !important; }
+
+/* Header */
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  margin-inline: -16px; padding-inline: 16px;
+}
+header.top .wrap { display: flex; align-items: center; gap: var(--s3); padding-block: .85rem; }
+.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; font: 600 1rem/1 var(--display); }
+.brand svg { width: 28px; height: 28px; flex: none; }
+nav.links { display: flex; gap: var(--s3); margin-left: auto; font-size: .95rem; }
+nav.links a { text-decoration: none; color: var(--ink-soft); }
+nav.links a:hover { color: var(--ink); }
+.lang { display: flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.lang button {
+  font: 500 .75rem/1 var(--mono); letter-spacing: .06em; padding: .45rem .7rem; border: 0;
+  background: transparent; color: var(--ink-soft); cursor: pointer;
+}
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+@media (max-width: 760px) { nav.links { display: none; } .lang { margin-left: auto; } }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--s5); align-items: center; padding-block: var(--s5) var(--s6); }
+.hero > div { min-width: 0; }
+.kid { display: inline-flex; gap: .6rem; align-items: center; margin-bottom: var(--s3); }
+.kid b { font: 500 .75rem/1 var(--mono); background: var(--ink); color: var(--bg); padding: .35rem .5rem; border-radius: 3px; }
+.hero h1 { font-size: clamp(2rem, 4.6vw, 3.6rem); font-weight: 800; line-height: 1.05; }
+.hero h1 em { font-style: normal; color: var(--cell); }
+.hero .lede { margin-top: var(--s3); max-width: 34em; font-size: 1.15rem; color: var(--ink-soft); }
+.cta { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s4); }
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem; padding: .9rem 1.3rem; border-radius: 999px;
+  font: 600 .95rem/1 var(--body); text-decoration: none; border: 1px solid var(--ink); cursor: pointer;
+}
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn.primary:hover { background: var(--cell); border-color: var(--cell); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { border-color: var(--accent); }
+
+.plate-wrap { position: relative; max-width: 100%; aspect-ratio: 1; width: min(460px, 100%); justify-self: center; }
+.plate-wrap canvas { width: 100%; height: 100%; display: block; }
+.plate-tag {
+  position: absolute; right: -4px; bottom: 8%;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+  padding: .6rem .75rem; font: 400 .72rem/1.5 var(--mono); color: var(--ink-soft);
+  box-shadow: 0 6px 18px -10px rgba(0,0,0,.35);
+}
+.plate-tag strong { color: var(--ink); font-weight: 500; }
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: var(--s4); padding-block: var(--s4) var(--s5); }
+  .plate-wrap { width: min(340px, 100%); }
+}
+
+/* Sections */
+section.block { padding-block: var(--s5); border-top: 1px solid var(--line); }
+.sec-head { display: grid; grid-template-columns: 220px 1fr; gap: var(--s4); margin-bottom: var(--s4); }
+.sec-head > * { min-width: 0; }
+.sec-head h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 600; line-height: 1.15; }
+.sec-head p { margin-top: var(--s2); color: var(--ink-soft); max-width: 40em; }
+@media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; gap: var(--s1); } }
+
+/* About */
+.about { display: grid; grid-template-columns: 220px 1fr 1fr; gap: var(--s4); }
+.about > div { min-width: 0; }
+.about .col p + p { margin-top: var(--s2); }
+.facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.facts li { display: flex; justify-content: space-between; gap: var(--s2); padding-block: .75rem; border-bottom: 1px dashed var(--line); }
+.facts li span:last-child { font-family: var(--mono); font-size: .9rem; text-align: right; }
+@media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: var(--s3); } }
+
+/* Application areas — specimen cards */
+.areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); }
+.spec {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  padding: var(--s3); display: grid; grid-template-rows: auto auto 1fr auto; gap: var(--s2); min-width: 0;
+}
+.spec .code { display: flex; justify-content: space-between; font: 500 .75rem/1 var(--mono); color: var(--ink-soft); letter-spacing: .06em; }
+.spec .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); display: inline-block; }
+.spec h3 { font-size: 1.25rem; font-weight: 600; }
+.spec ul { margin: 0; padding-left: 1.1rem; color: var(--ink-soft); display: grid; gap: .35rem; }
+.spec .foot { font: 400 .78rem/1.4 var(--mono); color: var(--accent-ink); border-top: 1px solid var(--line); padding-top: var(--s1); }
+@media (max-width: 860px) { .areas { grid-template-columns: 1fr; } }
+
+/* Lab */
+.lab { display: grid; grid-template-columns: 220px 1fr; gap: var(--s4); }
+.lab > * { min-width: 0; }
+.caps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: 1px solid var(--ink); }
+.cap { padding: var(--s3) var(--s3) var(--s3) 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 2.2rem 1fr; gap: var(--s2); }
+.cap:nth-child(odd) { border-right: 1px solid var(--line); }
+.cap:nth-child(even) { padding-left: var(--s3); }
+.cap svg { width: 2.2rem; height: 2.2rem; stroke: var(--cell); fill: none; stroke-width: 1.5; }
+.cap h3 { font: 600 1rem/1.3 var(--body); margin-bottom: .3rem; }
+.cap p { color: var(--ink-soft); font-size: .95rem; }
+@media (max-width: 760px) {
+  .lab { grid-template-columns: 1fr; gap: var(--s2); }
+  .caps { grid-template-columns: 1fr; }
+  .cap:nth-child(odd) { border-right: 0; }
+  .cap:nth-child(even) { padding-left: 0; }
+}
+
+/* Process — a real sequence, so numbered */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s2); counter-reset: st; }
+.steps li { counter-increment: st; position: relative; padding-top: var(--s4); min-width: 0; }
+.steps li::before {
+  content: "Ф" counter(st); position: absolute; top: 0; left: 0;
+  font: 500 .75rem/1 var(--mono); color: var(--bg); background: var(--cell); padding: .35rem .45rem; border-radius: 3px;
+}
+html[data-lang="en"] .steps li::before { content: "P" counter(st); }
+.steps li::after { content: ""; position: absolute; top: .78rem; left: 2.8rem; right: -.6rem; height: 1px; background: var(--line); }
+.steps li:last-child::after { display: none; }
+.steps h3 { font: 600 1rem/1.3 var(--body); margin-bottom: .35rem; }
+.steps p { font-size: .93rem; color: var(--ink-soft); }
+@media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; row-gap: var(--s3); } .steps li::after { display: none; } }
+@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); align-items: start; }
+.contact > * { min-width: 0; }
+.contact h2 { font-size: clamp(1.6rem, 3.4vw, 2.6rem); font-weight: 800; line-height: 1.1; }
+.contact .intro { margin-top: var(--s2); color: var(--ink-soft); max-width: 32em; }
+.addr { margin-top: var(--s4); display: grid; gap: var(--s2); }
+.addr div { display: grid; gap: .2rem; }
+.addr .v { font-family: var(--mono); font-size: .95rem; user-select: all; }
+form { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: var(--s3); display: grid; gap: var(--s2); }
+form label { display: grid; gap: .35rem; font-size: .9rem; font-weight: 500; }
+input, select, textarea {
+  font: inherit; font-size: 1rem; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 4px; padding: .7rem .8rem; width: 100%;
+}
+textarea { min-height: 7rem; resize: vertical; }
+.sent { font: 400 .85rem/1.4 var(--mono); color: var(--cell); }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; gap: var(--s4); } }
+
+footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); display: flex; flex-wrap: wrap; gap: var(--s2); justify-content: space-between; color: var(--ink-soft); font: 400 .8rem/1.5 var(--mono); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="BG BioCommerce">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="12" cy="13" r="3.2" fill="var(--cell)"/>
+        <circle cx="20" cy="18" r="4.4" fill="var(--accent)"/>
+        <circle cx="13" cy="21.5" r="1.8" fill="var(--cell)"/>
+      </svg>
+      BG BioCommerce
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#about"><span class="bg">За нас</span><span class="en">About</span></a>
+      <a href="#areas"><span class="bg">Направления</span><span class="en">Areas</span></a>
+      <a href="#lab"><span class="bg">Лаборатория</span><span class="en">Laboratory</span></a>
+      <a href="#contact"><span class="bg">Контакт</span><span class="en">Contact</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="lang-bg" data-set="bg" aria-pressed="true">BG</button>
+      <button type="button" id="lang-en" data-set="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero">
+    <div>
+      <div class="kid"><b>КИД 72.11</b>
+        <span class="label"><span class="bg">НИРД · Биотехнологии</span><span class="en">R&amp;D · Biotechnology</span></span>
+      </div>
+      <h1>
+        <span class="bg">От лабораторната плака до <em>нов продукт</em></span>
+        <span class="en">From the culture plate to a <em>new product</em></span>
+      </h1>
+      <p class="lede">
+        <span class="bg">Научноизследователска и развойна дейност в областта на биотехнологиите. Разработваме и тестваме активни съставки и формули за козметиката, хранителната индустрия и хранителните добавки.</span>
+        <span class="en">Research and experimental development in biotechnology. We develop and test active ingredients and formulations for cosmetics, the food industry and food supplements.</span>
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#contact"><span class="bg">Обсъдете проект</span><span class="en">Discuss a project</span> →</a>
+        <a class="btn ghost" href="#lab"><span class="bg">Нашата лаборатория</span><span class="en">Our laboratory</span></a>
+      </div>
+    </div>
+    <div class="plate-wrap">
+      <canvas id="plate" aria-label="Culture plate illustration" role="img"></canvas>
+      <div class="plate-tag" aria-hidden="true">
+        <strong>BGB-0427</strong><br>
+        <span class="bg">Скрининг · 30 °C · 48 ч</span><span class="en">Screening · 30 °C · 48 h</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="about">
+      <div><span class="label"><span class="bg">За нас</span><span class="en">About us</span></span></div>
+      <div class="col">
+        <h2 style="font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:600;line-height:1.2;margin-bottom:var(--s3)">
+          <span class="bg">Малък екип, собствена лаборатория, приложна наука.</span>
+          <span class="en">A small team, our own lab, applied science.</span>
+        </h2>
+        <p>
+          <span class="bg">Ние сме българска компания, която превръща биотехнологични идеи в работещи прототипи. Започваме от въпроса на клиента, проверяваме го в лабораторията и стигаме до съставка или формула, готова за пилотно производство.</span>
+          <span class="en">We are a Bulgarian company that turns biotech ideas into working prototypes. We start from the client's question, test it in the lab and arrive at an ingredient or formulation ready for pilot production.</span>
+        </p>
+        <p>
+          <span class="bg">Работим и по собствени проекти и търсим партньори за съвместни разработки и проекти по европейски програми.</span>
+          <span class="en">We also run our own projects and look for partners for joint development and EU-funded research.</span>
+        </p>
+      </div>
+      <ul class="facts">
+        <li><span><span class="bg">Дейност</span><span class="en">Activity</span></span><span>НИРД / R&amp;D</span></li>
+        <li><span><span class="bg">Код по КИД-2008</span><span class="en">NACE Rev. 2</span></span><span>72.11</span></li>
+        <li><span><span class="bg">Седалище</span><span class="en">Based in</span></span><span><span class="bg">[град], България</span><span class="en">[City], Bulgaria</span></span></li>
+        <li><span><span class="bg">Направления</span><span class="en">Sectors</span></span><span><span class="bg">3</span><span class="en">3</span></span></li>
+        <li><span><span class="bg">Основана</span><span class="en">Founded</span></span><span>[20XX]</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="areas">
+    <div class="sec-head">
+      <span class="label"><span class="bg">Направления</span><span class="en">Application areas</span></span>
+      <div>
+        <h2><span class="bg">Три индустрии, един лабораторен подход</span><span class="en">Three industries, one lab approach</span></h2>
+        <p><span class="bg">Всяко направление започва със скрининг в малък мащаб и завършва с документиран прототип.</span><span class="en">Each area starts with small-scale screening and ends with a documented prototype.</span></p>
+      </div>
+    </div>
+    <div class="areas">
+      <article class="spec">
+        <div class="code"><span>A · COS</span><span class="dot" aria-hidden="true"></span></div>
+        <h3><span class="bg">Козметика</span><span class="en">Cosmetics</span></h3>
+        <ul>
+          <li><span class="bg">Растителни екстракти и ферментирали активни съставки</span><span class="en">Plant extracts and fermented actives</span></li>
+          <li><span class="bg">Пребиотични и постбиотични компоненти</span><span class="en">Prebiotic and postbiotic ingredients</span></li>
+          <li><span class="bg">Прототипи на кремове, серуми, тоници</span><span class="en">Cream, serum and toner prototypes</span></li>
+        </ul>
+        <p class="foot"><span class="bg">pH · стабилност · микробиологична чистота</span><span class="en">pH · stability · microbial purity</span></p>
+      </article>
+      <article class="spec">
+        <div class="code"><span>B · FOOD</span><span class="dot" aria-hidden="true" style="background:var(--cell)"></span></div>
+        <h3><span class="bg">Хранителна индустрия</span><span class="en">Food industry</span></h3>
+        <ul>
+          <li><span class="bg">Стартерни и пробиотични култури</span><span class="en">Starter and probiotic cultures</span></li>
+          <li><span class="bg">Ферментационни процеси и нови вкусове</span><span class="en">Fermentation processes and new flavours</span></li>
+          <li><span class="bg">Естествени консерванти и функционални съставки</span><span class="en">Natural preservatives and functional ingredients</span></li>
+        </ul>
+        <p class="foot"><span class="bg">CFU/g · срок на годност · сензорика</span><span class="en">CFU/g · shelf life · sensory</span></p>
+      </article>
+      <article class="spec">
+        <div class="code"><span>C · SUPP</span><span class="dot" aria-hidden="true" style="background:var(--ink-soft)"></span></div>
+        <h3><span class="bg">Хранителни добавки</span><span class="en">Food supplements</span></h3>
+        <ul>
+          <li><span class="bg">Биоактивни вещества от растения и микроорганизми</span><span class="en">Bioactives from plants and microorganisms</span></li>
+          <li><span class="bg">Рецептури за капсули, прахове, течни форми</span><span class="en">Capsule, powder and liquid formulations</span></li>
+          <li><span class="bg">Подкрепа за документация към БАБХ</span><span class="en">Support with BFSA notification dossiers</span></li>
+        </ul>
+        <p class="foot"><span class="bg">mg/доза · съвместимост · стабилност</span><span class="en">mg/dose · compatibility · stability</span></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="lab">
+    <div class="lab">
+      <div>
+        <span class="label"><span class="bg">Лаборатория</span><span class="en">Laboratory</span></span>
+        <h2 style="font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:600;line-height:1.2;margin-top:var(--s2)">
+          <span class="bg">Малка по размер, голяма по потенциал</span><span class="en">Small in size, big in potential</span>
+        </h2>
+      </div>
+      <div class="caps">
+        <div class="cap">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="14"/><circle cx="13" cy="15" r="2.5"/><circle cx="21" cy="21" r="3.5"/><circle cx="22" cy="12" r="1.5"/></svg>
+          <div><h3><span class="bg">Микробиология</span><span class="en">Microbiology</span></h3>
+          <p><span class="bg">Култивиране, изолиране и скрининг на щамове.</span><span class="en">Cultivation, isolation and strain screening.</span></p></div>
+        </div>
+        <div class="cap">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M13 4h10M15 4v10L7 29a2 2 0 0 0 2 3h18a2 2 0 0 0 2-3l-8-15V4"/><path d="M10 23h16"/></svg>
+          <div><h3><span class="bg">Ферментация</span><span class="en">Fermentation</span></h3>
+          <p><span class="bg">Лабораторни ферментации и оптимизация на среди.</span><span class="en">Bench-scale fermentation and media optimisation.</span></p></div>
+        </div>
+        <div class="cap">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M6 30h24M10 30V18h4v12M16 30V10h4v20M22 30V14h4v16"/></svg>
+          <div><h3><span class="bg">Анализи</span><span class="en">Analysis</span></h3>
+          <p><span class="bg">Физикохимични показатели, активност, стабилност.</span><span class="en">Physico-chemical parameters, activity, stability.</span></p></div>
+        </div>
+        <div class="cap">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M12 4h12v6l5 6v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V16l5-6z"/><path d="M7 20h22"/></svg>
+          <div><h3><span class="bg">Формулиране</span><span class="en">Formulation</span></h3>
+          <p><span class="bg">Прототипи на готови продукти в малки партиди.</span><span class="en">Finished-product prototypes in small batches.</span></p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="process">
+    <div class="sec-head">
+      <span class="label"><span class="bg">Как работим</span><span class="en">How we work</span></span>
+      <div><h2><span class="bg">От идея до трансфер</span><span class="en">From idea to transfer</span></h2></div>
+    </div>
+    <ol class="steps">
+      <li><h3><span class="bg">Задание</span><span class="en">Brief</span></h3><p><span class="bg">Формулираме целта, изискванията и критериите за успех.</span><span class="en">We define the goal, requirements and success criteria.</span></p></li>
+      <li><h3><span class="bg">Проучване</span><span class="en">Research</span></h3><p><span class="bg">Литература, патенти и регулаторни рамки.</span><span class="en">Literature, patents and regulatory context.</span></p></li>
+      <li><h3><span class="bg">Скрининг</span><span class="en">Screening</span></h3><p><span class="bg">Лабораторни опити с кандидат-съставки и щамове.</span><span class="en">Lab trials of candidate ingredients and strains.</span></p></li>
+      <li><h3><span class="bg">Прототип</span><span class="en">Prototype</span></h3><p><span class="bg">Формула, тестове за стабилност, протоколи.</span><span class="en">Formulation, stability tests, protocols.</span></p></li>
+      <li><h3><span class="bg">Трансфер</span><span class="en">Transfer</span></h3><p><span class="bg">Документация и подкрепа при мащабиране.</span><span class="en">Documentation and scale-up support.</span></p></li>
+    </ol>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="contact">
+      <div>
+        <span class="label"><span class="bg">Контакт</span><span class="en">Contact</span></span>
+        <h2 style="margin-top:var(--s2)"><span class="bg">Имате идея за продукт?</span><span class="en">Have a product idea?</span></h2>
+        <p class="intro"><span class="bg">Опишете накратко какво търсите. Ще отговорим с предложение за първите лабораторни стъпки.</span><span class="en">Tell us briefly what you are looking for. We will reply with a proposal for the first lab steps.</span></p>
+        <div class="addr">
+          <div><span class="label"><span class="bg">Имейл</span><span class="en">Email</span></span><span class="v">[имейл@домейн.bg]</span></div>
+          <div><span class="label"><span class="bg">Телефон</span><span class="en">Phone</span></span><span class="v">+359 [__ ___ ____]</span></div>
+          <div><span class="label"><span class="bg">Адрес</span><span class="en">Address</span></span><span class="v"><span class="bg">[адрес на лабораторията]</span><span class="en">[laboratory address]</span></span></div>
+        </div>
+      </div>
+      <form id="inq" novalidate>
+        <label for="f-name"><span><span class="bg">Име и фирма</span><span class="en">Name and company</span></span>
+          <input id="f-name" name="name" autocomplete="name"></label>
+        <label for="f-mail"><span><span class="bg">Имейл</span><span class="en">Email</span></span>
+          <input id="f-mail" name="email" type="email" autocomplete="email"></label>
+        <label for="f-area"><span><span class="bg">Направление</span><span class="en">Area</span></span>
+          <select id="f-area" name="area">
+            <option class="bg">Козметика</option><option class="bg">Хранителна индустрия</option><option class="bg">Хранителни добавки</option><option class="bg">Друго / съвместен проект</option>
+            <option class="en">Cosmetics</option><option class="en">Food industry</option><option class="en">Food supplements</option><option class="en">Other / joint project</option>
+          </select></label>
+        <label for="f-msg"><span><span class="bg">Съобщение</span><span class="en">Message</span></span>
+          <textarea id="f-msg" name="message"></textarea></label>
+        <button class="btn primary" type="submit" style="justify-self:start"><span class="bg">Изпратете запитване</span><span class="en">Send inquiry</span></button>
+        <p class="sent" id="sent" hidden><span class="bg">Демо форма. В реалния сайт ще бъде свързана с имейл.</span><span class="en">Demo form. On the live site it will be connected to email.</span></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 BG BioCommerce</span>
+    <span><span class="bg">Научноизследователска и развойна дейност в областта на биотехнологиите</span><span class="en">Research and experimental development in biotechnology</span></span>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const setLang = (l) => {
+    root.setAttribute('data-lang', l);
+    root.setAttribute('lang', l);
+    document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.set === l)));
+    const sel = document.getElementById('f-area');
+    const first = [...sel.options].find(o => o.classList.contains(l));
+    if (first && !sel.selectedOptions[0]?.classList.contains(l)) sel.value = first.value;
+    try { localStorage.setItem('bgb-lang', l); } catch (e) {}
+  };
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.set)));
+  let saved = 'bg';
+  try { saved = localStorage.getItem('bgb-lang') || 'bg'; } catch (e) {}
+  setLang(saved);
+
+  document.getElementById('inq').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('sent').hidden = false;
+  });
+
+  // Culture plate: colonies grow once from a seeded pattern, then rest.
+  const cv = document.getElementById('plate');
+  const ctx = cv.getContext('2d');
+  const css = (n) => getComputedStyle(root).getPropertyValue(n).trim();
+  let rnd = 7;
+  const r = () => (rnd = (rnd * 16807) % 2147483647) / 2147483647;
+  const colonies = [];
+  for (let i = 0; i < 46; i++) {
+    const a = r() * Math.PI * 2, d = Math.sqrt(r()) * 0.78;
+    colonies.push({ x: Math.cos(a) * d, y: Math.sin(a) * d, s: 0.012 + r() * r() * 0.07, k: r() < 0.3 ? 'accent' : (r() < 0.75 ? 'cell' : 'ink-soft'), delay: r() * 0.6 });
+  }
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let t0 = null;
+  function draw(ts) {
+    if (t0 === null) t0 = ts;
+    const p = reduce ? 1 : Math.min(1, (ts - t0) / 2400);
+    const dpr = window.devicePixelRatio || 1;
+    const w = cv.clientWidth;
+    if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(w * dpr); }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, w);
+    const c = w / 2, R = w / 2 - 6;
+    // dish
+    ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2);
+    ctx.fillStyle = css('--plate'); ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = css('--line'); ctx.stroke();
+    ctx.beginPath(); ctx.arc(c, c, R - 10, 0, Math.PI * 2);
+    ctx.lineWidth = 1; ctx.strokeStyle = css('--line'); ctx.stroke();
+    // quadrant marks like a streak plate
+    ctx.setLineDash([3, 5]);
+    ctx.beginPath(); ctx.moveTo(c, c - R + 10); ctx.lineTo(c, c + R - 10); ctx.moveTo(c - R + 10, c); ctx.lineTo(c + R - 10, c); ctx.stroke();
+    ctx.setLineDash([]);
+    for (const col of colonies) {
+      const g = Math.max(0, Math.min(1, (p - col.delay) / 0.4));
+      if (g <= 0) continue;
+      const e = 1 - Math.pow(1 - g, 3);
+      const rad = col.s * R * e;
+      const x = c + col.x * (R - 14), y = c + col.y * (R - 14);
+      ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2);
+      ctx.globalAlpha = 0.9; ctx.fillStyle = css('--' + col.k); ctx.fill();
+      ctx.globalAlpha = 0.35; ctx.beginPath(); ctx.arc(x - rad * 0.3, y - rad * 0.3, rad * 0.35, 0, Math.PI * 2);
+      ctx.fillStyle = css('--plate'); ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+    // quadrant labels
+    ctx.font = '500 11px "IBM Plex Mono", monospace'; ctx.fillStyle = css('--ink-soft');
+    ['A', 'B', 'C', 'D'].forEach((l, i) => {
+      const ang = -Math.PI * 3 / 4 + i * Math.PI / 2;
+      ctx.fillText(l, c + Math.cos(ang) * (R - 26) - 4, c + Math.sin(ang) * (R - 26) + 4);
+    });
+    if (p < 1) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+  const redraw = () => { t0 = -1e9; requestAnimationFrame(draw); };
+  addEventListener('resize', redraw);
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', redraw);
+  new MutationObserver(redraw).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+</script>
