@@ -46,7 +46,7 @@ p { margin: 0; }
 .label {
   font: 500 .75rem/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
 }
-html[data-lang="en"] .bg, html:not([data-lang="en"]) .en { display: none !important; }
+html[data-lang="bg"] .en, html:not([data-lang="bg"]) .bg { display: none !important; }
 
 /* Header */
 header.top {
@@ -153,10 +153,10 @@ section.block { padding-block: var(--s5); border-top: 1px solid var(--line); }
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s2); counter-reset: st; }
 .steps li { counter-increment: st; position: relative; padding-top: var(--s4); min-width: 0; }
 .steps li::before {
-  content: "Ф" counter(st); position: absolute; top: 0; left: 0;
+  content: "P" counter(st); position: absolute; top: 0; left: 0;
   font: 500 .75rem/1 var(--mono); color: var(--bg); background: var(--cell); padding: .35rem .45rem; border-radius: 3px;
 }
-html[data-lang="en"] .steps li::before { content: "P" counter(st); }
+html[data-lang="bg"] .steps li::before { content: "Ф" counter(st); }
 .steps li::after { content: ""; position: absolute; top: .78rem; left: 2.8rem; right: -.6rem; height: 1px; background: var(--line); }
 .steps li:last-child::after { display: none; }
 .steps h3 { font: 600 1rem/1.3 var(--body); margin-bottom: .35rem; }
@@ -205,8 +205,8 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
       <a href="#contact"><span class="bg">Контакт</span><span class="en">Contact</span></a>
     </nav>
     <div class="lang" role="group" aria-label="Language">
-      <button type="button" id="lang-bg" data-set="bg" aria-pressed="true">BG</button>
-      <button type="button" id="lang-en" data-set="en" aria-pressed="false">EN</button>
+      <button type="button" id="lang-en" data-set="en" aria-pressed="true">EN</button>
+      <button type="button" id="lang-bg" data-set="bg" aria-pressed="false">BG</button>
     </div>
   </div>
 </header>
@@ -214,7 +214,7 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
 <main class="wrap" id="top">
   <section class="hero">
     <div>
-      <div class="kid"><b>КИД 72.11</b>
+      <div class="kid"><b><span class="en">NACE 72.11</span><span class="bg">КИД 72.11</span></b>
         <span class="label"><span class="bg">НИРД · Биотехнологии</span><span class="en">R&amp;D · Biotechnology</span></span>
       </div>
       <h1>
@@ -374,8 +374,8 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
           <input id="f-mail" name="email" type="email" autocomplete="email"></label>
         <label for="f-area"><span><span class="bg">Направление</span><span class="en">Area</span></span>
           <select id="f-area" name="area">
-            <option class="bg">Козметика</option><option class="bg">Хранителна индустрия</option><option class="bg">Хранителни добавки</option><option class="bg">Друго / съвместен проект</option>
             <option class="en">Cosmetics</option><option class="en">Food industry</option><option class="en">Food supplements</option><option class="en">Other / joint project</option>
+            <option class="bg">Козметика</option><option class="bg">Хранителна индустрия</option><option class="bg">Хранителни добавки</option><option class="bg">Друго / съвместен проект</option>
           </select></label>
         <label for="f-msg"><span><span class="bg">Съобщение</span><span class="en">Message</span></span>
           <textarea id="f-msg" name="message"></textarea></label>
@@ -401,11 +401,11 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
     const sel = document.getElementById('f-area');
     const first = [...sel.options].find(o => o.classList.contains(l));
     if (first && !sel.selectedOptions[0]?.classList.contains(l)) sel.value = first.value;
-    try { localStorage.setItem('bgb-lang', l); } catch (e) {}
+    try { localStorage.setItem('bgb-lang-v2', l); } catch (e) {}
   };
   document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.set)));
-  let saved = 'bg';
-  try { saved = localStorage.getItem('bgb-lang') || 'bg'; } catch (e) {}
+  let saved = 'en';
+  try { saved = localStorage.getItem('bgb-lang-v2') || 'en'; } catch (e) {}
   setLang(saved);
 
   document.getElementById('inq').addEventListener('submit', (e) => {
