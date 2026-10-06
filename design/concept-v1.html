@@ -74,7 +74,6 @@ nav.links a:hover { color: var(--ink); }
 .hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--s5); align-items: center; padding-block: var(--s5) var(--s6); }
 .hero > div { min-width: 0; }
 .kid { display: inline-flex; gap: .6rem; align-items: center; margin-bottom: var(--s3); }
-.kid b { font: 500 .75rem/1 var(--mono); background: var(--ink); color: var(--bg); padding: .35rem .5rem; border-radius: 3px; }
 .hero h1 { font-size: clamp(2rem, 4.6vw, 3.6rem); font-weight: 800; line-height: 1.05; }
 .hero h1 em { font-style: normal; color: var(--cell); }
 .hero .lede { margin-top: var(--s3); max-width: 34em; font-size: 1.15rem; color: var(--ink-soft); }
@@ -214,7 +213,7 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
 <main class="wrap" id="top">
   <section class="hero">
     <div>
-      <div class="kid"><b><span class="en">NACE 72.11</span><span class="bg">КИД 72.11</span></b>
+      <div class="kid">
         <span class="label"><span class="bg">НИРД · Биотехнологии</span><span class="en">R&amp;D · Biotechnology</span></span>
       </div>
       <h1>
@@ -258,9 +257,8 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
       </div>
       <ul class="facts">
         <li><span><span class="bg">Дейност</span><span class="en">Activity</span></span><span><span class="en">R&amp;D</span><span class="bg">НИРД</span></span></li>
-        <li><span><span class="bg">Код по КИД-2008</span><span class="en">NACE Rev. 2</span></span><span>72.11</span></li>
         <li><span><span class="bg">Седалище</span><span class="en">Based in</span></span><span><span class="bg">[град], България</span><span class="en">[City], Bulgaria</span></span></li>
-        <li><span><span class="bg">Направления</span><span class="en">Sectors</span></span><span><span class="bg">3</span><span class="en">3</span></span></li>
+        <li><span><span class="bg">Направления</span><span class="en">Sectors</span></span><span>3</span></li>
         <li><span><span class="bg">Основана</span><span class="en">Founded</span></span><span>[20XX]</span></li>
       </ul>
     </div>
