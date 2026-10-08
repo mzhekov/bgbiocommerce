@@ -23,6 +23,6 @@ Static company website for BG BioCommerce (biotechnology R&D). No build step: th
 
 ## Before going live
 
-- Replace the placeholders in `docs/index.html` (marked with `[brackets]`): city, founding year, address.
+- Replace the placeholders in `docs/index.html` (marked with `[brackets]`): founding year.
 - Add the legal company details in the footer: registered name, ЕИК, registered address.
 - Contact form: create a free access key at https://web3forms.com and set `FORM_ACCESS_KEY` in the script at the bottom of `docs/index.html`. Until then the form opens the visitor's email app.
