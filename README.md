@@ -1,6 +1,6 @@
-# BG BioCommerce website
+# BG Biocommerce website
 
-Static company website for BG BioCommerce (biotechnology R&D). No build step: the site is plain HTML, CSS and JavaScript in `docs/`.
+Static company website for BG Biocommerce (biotechnology R&D). No build step: the site is plain HTML, CSS and JavaScript in `docs/`.
 
 - `docs/index.html`: the site (English by default, with a BG language switch)
 - `docs/fonts/`: self-hosted fonts (Unbounded, Onest, IBM Plex Mono; SIL Open Font License), so no visitor data goes to Google
@@ -23,6 +23,5 @@ Static company website for BG BioCommerce (biotechnology R&D). No build step: th
 
 ## Before going live
 
-- Replace the placeholders in `docs/index.html` (marked with `[brackets]`): founding year.
-- Add the legal company details in the footer: registered name, ЕИК, registered address.
+- Company details (BG Biocommerce Ltd., UIC 204871800, VAT BG204871800, Plovdiv) and the privacy notice are in the `#privacy` section of `docs/index.html`.
 - Contact form: create a free access key at https://web3forms.com and set `FORM_ACCESS_KEY` in the script at the bottom of `docs/index.html`. Until then the form opens the visitor's email app.
