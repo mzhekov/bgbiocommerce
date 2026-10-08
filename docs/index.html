@@ -405,6 +405,7 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
           </select></label>
         <label for="f-msg"><span><span class="bg">Съобщение</span><span class="en">Message</span></span>
           <textarea id="f-msg" name="message" required></textarea></label>
+        <input type="checkbox" name="botcheck" id="f-botcheck" tabindex="-1" autocomplete="off" hidden>
         <button class="btn primary" type="submit" style="justify-self:start"><span class="bg">Изпратете запитване</span><span class="en">Send inquiry</span></button>
         <p class="note"><span class="en">We use your details only to reply to your enquiry. See our <a href="#privacy">privacy notice</a>.</span><span class="bg">Използваме данните ви само за да отговорим на запитването. Вижте <a href="#privacy">информацията за поверителност</a>.</span></p>
         <p class="sent" id="sent" role="status" hidden></p>
@@ -468,7 +469,7 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
 
   // Contact form. Set FORM_ACCESS_KEY to a Web3Forms key (https://web3forms.com) to deliver
   // enquiries by email. Without a key the form opens the visitor's email app instead.
-  const FORM_ACCESS_KEY = '';
+  const FORM_ACCESS_KEY = 'a4fbc38a-ad10-4272-9a17-7a037b1d7873';
   const CONTACT_EMAIL = 'sales@bgbiocommerce.com';
   const form = document.getElementById('inq');
   const sent = document.getElementById('sent');
@@ -480,6 +481,8 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(form));
+    if (d.botcheck) return;
+    delete d.botcheck;
     const subject = `Website enquiry: ${d.area}`;
     if (!FORM_ACCESS_KEY) {
       const body = `${d.message}\n\n${d.name}\n${d.email}`;

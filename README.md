@@ -24,4 +24,4 @@ Static company website for BG Biocommerce (biotechnology R&D). No build step: th
 ## Before going live
 
 - Company details (BG Biocommerce Ltd., UIC 204871800, VAT BG204871800, Plovdiv) and the privacy notice are in the `#privacy` section of `docs/index.html`.
-- Contact form: create a free access key at https://web3forms.com and set `FORM_ACCESS_KEY` in the script at the bottom of `docs/index.html`. Until then the form opens the visitor's email app.
+- Contact form: enquiries are delivered by Web3Forms to the email the access key was created with. The key (`FORM_ACCESS_KEY` in `docs/index.html`) is public by design; manage it at https://web3forms.com.
