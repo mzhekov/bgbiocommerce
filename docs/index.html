@@ -1,7 +1,18 @@
-<title>BG BioCommerce</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Onest:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BG BioCommerce · Biotechnology R&amp;D</title>
+<meta name="description" content="BG BioCommerce: research and experimental development in biotechnology. Our laboratory develops and tests ingredients and formulations for cosmetics, the food industry and food supplements.">
+<meta name="theme-color" content="#12302a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BG BioCommerce · Biotechnology R&amp;D">
+<meta property="og:description" content="From the culture plate to a new product. Biotech R&amp;D for cosmetics, food and food supplements.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/unbounded-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/onest-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 /* Layout: a lab notebook — a culture-plate hero, then specimen-label sections on a mineral ground, one amber "agar" accent. */
 :root {
@@ -33,7 +44,11 @@
 }
 
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
 body {
+  margin: 0;
   background: var(--bg); color: var(--ink);
   font: 400 1.0625rem/1.6 var(--body);
   padding-inline: 16px;
@@ -184,7 +199,11 @@ textarea { min-height: 7rem; resize: vertical; }
 footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); display: flex; flex-wrap: wrap; gap: var(--s2); justify-content: space-between; color: var(--ink-soft); font: 400 .8rem/1.5 var(--mono); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.sent.err { color: var(--accent-ink); }
+.note { font-size: .8rem; color: var(--ink-soft); }
 </style>
+</head>
+<body>
 
 <header class="top">
   <div class="wrap">
@@ -360,24 +379,27 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
         <h2 style="margin-top:var(--s2)"><span class="bg">Имате идея за продукт?</span><span class="en">Have a product idea?</span></h2>
         <p class="intro"><span class="bg">Опишете накратко какво търсите. Ще отговорим с предложение за първите лабораторни стъпки.</span><span class="en">Tell us briefly what you are looking for. We will reply with a proposal for the first lab steps.</span></p>
         <div class="addr">
-          <div><span class="label"><span class="bg">Имейл</span><span class="en">Email</span></span><span class="v">sales@bgbiocommerce.com</span></div>
+          <div><span class="label"><span class="bg">Имейл</span><span class="en">Email</span></span><a class="v" href="mailto:sales@bgbiocommerce.com">sales@bgbiocommerce.com</a></div>
           <div><span class="label"><span class="bg">Адрес</span><span class="en">Address</span></span><span class="v"><span class="bg">[адрес на лабораторията]</span><span class="en">[laboratory address]</span></span></div>
         </div>
       </div>
-      <form id="inq" novalidate>
+      <form id="inq">
         <label for="f-name"><span><span class="bg">Име и фирма</span><span class="en">Name and company</span></span>
-          <input id="f-name" name="name" autocomplete="name"></label>
+          <input id="f-name" name="name" autocomplete="name" required></label>
         <label for="f-mail"><span><span class="bg">Имейл</span><span class="en">Email</span></span>
-          <input id="f-mail" name="email" type="email" autocomplete="email"></label>
+          <input id="f-mail" name="email" type="email" autocomplete="email" required></label>
         <label for="f-area"><span><span class="bg">Направление</span><span class="en">Area</span></span>
           <select id="f-area" name="area">
-            <option class="en">Cosmetics</option><option class="en">Food industry</option><option class="en">Food supplements</option><option class="en">Other / joint project</option>
-            <option class="bg">Козметика</option><option class="bg">Хранителна индустрия</option><option class="bg">Хранителни добавки</option><option class="bg">Друго / съвместен проект</option>
+            <option value="Cosmetics" data-bg="Козметика">Cosmetics</option>
+            <option value="Food industry" data-bg="Хранителна индустрия">Food industry</option>
+            <option value="Food supplements" data-bg="Хранителни добавки">Food supplements</option>
+            <option value="Other / joint project" data-bg="Друго / съвместен проект">Other / joint project</option>
           </select></label>
         <label for="f-msg"><span><span class="bg">Съобщение</span><span class="en">Message</span></span>
-          <textarea id="f-msg" name="message"></textarea></label>
+          <textarea id="f-msg" name="message" required></textarea></label>
         <button class="btn primary" type="submit" style="justify-self:start"><span class="bg">Изпратете запитване</span><span class="en">Send inquiry</span></button>
-        <p class="sent" id="sent" hidden><span class="bg">Демо форма. В реалния сайт ще бъде свързана с имейл.</span><span class="en">Demo form. On the live site it will be connected to email.</span></p>
+        <p class="note"><span class="en">We use your details only to reply to your enquiry.</span><span class="bg">Използваме данните ви само за да отговорим на запитването.</span></p>
+        <p class="sent" id="sent" role="status" hidden></p>
       </form>
     </div>
   </section>
@@ -395,19 +417,53 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
     root.setAttribute('data-lang', l);
     root.setAttribute('lang', l);
     document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.set === l)));
-    const sel = document.getElementById('f-area');
-    const first = [...sel.options].find(o => o.classList.contains(l));
-    if (first && !sel.selectedOptions[0]?.classList.contains(l)) sel.value = first.value;
-    try { localStorage.setItem('bgb-lang-v2', l); } catch (e) {}
+    document.querySelectorAll('#f-area option').forEach(o => {
+      if (!o.dataset.en) o.dataset.en = o.textContent;
+      o.textContent = l === 'bg' ? o.dataset.bg : o.dataset.en;
+    });
+    try { localStorage.setItem('bgb-lang', l); } catch (e) {}
   };
   document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.set)));
   let saved = 'en';
-  try { saved = localStorage.getItem('bgb-lang-v2') || 'en'; } catch (e) {}
+  try { saved = localStorage.getItem('bgb-lang') || 'en'; } catch (e) {}
   setLang(saved);
 
-  document.getElementById('inq').addEventListener('submit', (e) => {
+  // Contact form. Set FORM_ACCESS_KEY to a Web3Forms key (https://web3forms.com) to deliver
+  // enquiries by email. Without a key the form opens the visitor's email app instead.
+  const FORM_ACCESS_KEY = '';
+  const CONTACT_EMAIL = 'sales@bgbiocommerce.com';
+  const form = document.getElementById('inq');
+  const sent = document.getElementById('sent');
+  const say = (en, bg, err) => {
+    sent.textContent = root.getAttribute('data-lang') === 'bg' ? bg : en;
+    sent.classList.toggle('err', !!err);
+    sent.hidden = false;
+  };
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    document.getElementById('sent').hidden = false;
+    const d = Object.fromEntries(new FormData(form));
+    const subject = `Website enquiry: ${d.area}`;
+    if (!FORM_ACCESS_KEY) {
+      const body = `${d.message}\n\n${d.name}\n${d.email}`;
+      location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ access_key: FORM_ACCESS_KEY, subject, from_name: 'BG BioCommerce website', ...d }),
+      });
+      if (!res.ok) throw new Error(res.status);
+      form.reset();
+      say('Thank you. We received your enquiry and will reply soon.', 'Благодарим ви. Получихме запитването и ще отговорим скоро.');
+    } catch (err) {
+      say(`The message could not be sent. Please email us at ${CONTACT_EMAIL}.`, `Съобщението не беше изпратено. Моля, пишете ни на ${CONTACT_EMAIL}.`, true);
+    } finally {
+      btn.disabled = false;
+    }
   });
 
   // Culture plate: colonies grow once from a seeded pattern, then rest.
@@ -469,3 +525,5 @@ footer { border-top: 1px solid var(--line); padding-block: var(--s3) var(--s4); 
   new MutationObserver(redraw).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
 })();
 </script>
+</body>
+</html>
